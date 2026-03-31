@@ -5,30 +5,48 @@ Because Arc doesn't officially support Chrome's `chrome.sidePanel` APIs natively
 
 ## Installation
 
-This script automatically finds your active Claude Extension directory within Arc's User Data folder, safely backs up everything, and applies the injection patches. 
+This script automatically finds your active Claude Extension directory across all Arc profiles, safely backs up everything, and applies the injection patches.
 
 1. Ensure the **Official Claude Extension** is installed via the Chrome Web Store on Arc.
 
-2. Clone or Download this repository.
+2. Clone or download this repository:
 
-3. Open Terminal, cd into this directory and run:
+   ```bash
+   git clone https://github.com/junkim100/Claude-in-Arc.git
+   cd Claude-in-Arc
+   ```
+
+3. Run the install script:
 
    ```bash
    node scripts/install.js
    ```
 
-4. Once completed, navigate to `arc://extensions` in Arc.
+4. Go to `arc://extensions` in Arc and enable **Developer mode** (top-right toggle).
 
-5. Click the **Reload** button on the "Claude in Arc v0.1" extension.
+5. **Remove** the existing Claude extension (the Chrome Web Store version).
 
-6. Refresh any open tabs.
+6. Click **"Load unpacked"** and select the patched extension directory printed by the script (e.g., `~/Library/Application Support/Arc/User Data/<Profile>/Extensions/fcoeoabgfenejglbffodgkkbkcdhcgfn/1.0.64_0`).
 
-7. Use `Cmd+E` or the extension icon to toggle the panel!
+7. Refresh any open tabs.
+
+8. Use `Cmd+E` or the extension icon to toggle the panel!
+
+> **Note:** Since the extension is loaded as unpacked, it will not auto-update from the Chrome Web Store. To update, re-run the install script after the Chrome Web Store version is updated.
 
 ## Uninstallation / Revert to Official
 
-The installer always creates a `_backup` directory of the unmodified official extension before injecting files.
-To revert, simply go to your extensions folder (`~/Library/Application Support/Arc/User Data/Default/Extensions/fcoeoabgfenejglbffodgkkbkcdhcgfn`), delete the latest patched version folder, and rename `1.0.xx_x_backup` back to `1.0.xx_x`. Reload the extension in Arc, and you are back to vanilla.
+To revert to the official Claude extension:
+
+1. Run the uninstall script:
+
+   ```bash
+   node scripts/uninstall.js
+   ```
+
+2. Go to `arc://extensions` and remove the "Claude in Arc" unpacked extension.
+
+3. Reinstall the official Claude extension from the Chrome Web Store.
 
 ## TODO
 

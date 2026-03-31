@@ -63,4 +63,7 @@ for (const { name: profileName, extDir, backupName } of profilesToRestore) {
 }
 
 console.log(`\n🎉 Done! Restored ${restoredCount} profile(s) to the original Claude extension.`);
-console.log(`👉 Please go to Arc's extensions page (arc://extensions), locate "Claude", and click the Reload button.`);
+console.log(`\n👉 Next steps:`);
+console.log(`   1. Go to arc://extensions`);
+console.log(`   2. Remove the "Claude in Arc" unpacked extension`);
+console.log(`   3. Reinstall the official Claude extension from the Chrome Web Store`);

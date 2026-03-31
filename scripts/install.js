@@ -163,4 +163,9 @@ document.addEventListener("keydown", (e) => {
 }
 
 console.log(`\n🎉 Done! Patched ${patchedCount} profile(s)${failedCount > 0 ? `, ${failedCount} failed` : ''}.`);
-console.log(`👉 Please go to Arc's extensions page (arc://extensions), locate "Claude in Arc v0.1", and click the Reload button.`);
+console.log(`\n👉 Next steps:`);
+console.log(`   1. Go to arc://extensions and enable Developer mode (top-right toggle)`);
+console.log(`   2. Remove the existing Claude extension (the Chrome Web Store version)`);
+console.log(`   3. Click "Load unpacked" and select one of the patched directories above`);
+console.log(`   4. Refresh any open tabs and use Cmd+E or the extension icon to toggle the panel!`);
+console.log(`\n⚠️  Since this loads as an unpacked extension, it will not auto-update from the Chrome Web Store.`);
