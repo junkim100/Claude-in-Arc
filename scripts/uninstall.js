@@ -14,9 +14,9 @@ if (!fs.existsSync(ARC_USER_DATA)) {
 // Find profiles that have a backup (i.e., were previously patched)
 // Profile directories can have any name (Default, Profile 1, custom names, etc.)
 const profilesToRestore = [];
-for (const d of fs.readdirSync(ARC_USER_DATA)) {
-  if (!fs.statSync(path.join(ARC_USER_DATA, d)).isDirectory()) continue;
-  const extDir = path.join(ARC_USER_DATA, d, 'Extensions', EXTENSION_ID);
+for (const entry of fs.readdirSync(ARC_USER_DATA, { withFileTypes: true })) {
+  if (!entry.isDirectory()) continue;
+  const extDir = path.join(ARC_USER_DATA, entry.name, 'Extensions', EXTENSION_ID);
   if (!fs.existsSync(extDir)) continue;
 
   const backupDirs = fs.readdirSync(extDir).filter(d =>
@@ -25,7 +25,7 @@ for (const d of fs.readdirSync(ARC_USER_DATA)) {
 
   if (backupDirs.length > 0) {
     backupDirs.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-    profilesToRestore.push({ name: d, extDir, backupName: backupDirs[backupDirs.length - 1] });
+    profilesToRestore.push({ name: entry.name, extDir, backupName: backupDirs[backupDirs.length - 1] });
   }
 }
 

@@ -14,10 +14,11 @@ if (!fs.existsSync(ARC_USER_DATA)) {
 // Find all profiles that have the Claude extension installed
 // Profile directories can have any name (Default, Profile 1, custom names, etc.)
 const profilesToPatch = [];
-for (const d of fs.readdirSync(ARC_USER_DATA)) {
-  const extDir = path.join(ARC_USER_DATA, d, 'Extensions', EXTENSION_ID);
-  if (fs.statSync(path.join(ARC_USER_DATA, d)).isDirectory() && fs.existsSync(extDir)) {
-    profilesToPatch.push({ name: d, extDir });
+for (const entry of fs.readdirSync(ARC_USER_DATA, { withFileTypes: true })) {
+  if (!entry.isDirectory()) continue;
+  const extDir = path.join(ARC_USER_DATA, entry.name, 'Extensions', EXTENSION_ID);
+  if (fs.existsSync(extDir)) {
+    profilesToPatch.push({ name: entry.name, extDir });
   }
 }
 
