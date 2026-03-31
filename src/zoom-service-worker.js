@@ -1,3 +1,20 @@
+// Programmatically register content scripts (bypasses manifest caching in Arc)
+chrome.scripting.registerContentScripts([
+  {
+    id: "claude-panel-injector",
+    matches: ["<all_urls>"],
+    js: ["assets/claude-panel-injector.js"],
+    runAt: "document_idle"
+  },
+  {
+    id: "viewport-override",
+    matches: ["<all_urls>"],
+    js: ["assets/viewport-override.js"],
+    runAt: "document_start",
+    world: "MAIN"
+  }
+]).catch(() => {});
+
 // Zoom management listener
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === "CLAUDE_ARC_GET_ZOOM") {
